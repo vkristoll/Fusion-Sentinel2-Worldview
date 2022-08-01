@@ -42,8 +42,11 @@ output_array=np.array(im_output.ReadAsArray()).transpose(1,2,0)
 shapeout=np.shape(output_array)
 bandsout=shapeout[2]
 
+#Define batch and patch sizes
+batch_size=128
+patch_size=40
+
 #Create training patches
-patch_size=9
 [x,y]=create_patches(output_array,input_array,patch_size, bandsin, bandsout)
 
 #Change the axes order from rows,cols,bands to bands,rows,cols 
@@ -52,10 +55,6 @@ y=y.transpose(0,3,1,2)
 
 #Calculate the number of patches
 dataset_size=np.shape(x)[0]
-
-#Define batch and patch sizes
-batch_size=128
-patch_size=40
 
 #Define function that creates the training batches
 def generate_batch():
